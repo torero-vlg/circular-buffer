@@ -1,4 +1,4 @@
-﻿namespace CircularBuffer.Core
+﻿namespace CircularBuffer.Core.Domain
 {
     public class Page
     {

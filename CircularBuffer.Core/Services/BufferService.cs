@@ -1,15 +1,23 @@
 ﻿using System;
+using CircularBuffer.Core.Domain;
+using Buffer = CircularBuffer.Core.Domain.Buffer;
 
-namespace CircularBuffer.Core
+namespace CircularBuffer.Core.Services
 {
-    public class Buffer
+    public interface IBufferService
     {
-        public Buffer(int size)
-        {
-            Pages = new Page[size];
-        }
+        void Write(Page page);
+        Page Read();
+    }
 
-        public Page[] Pages { get; set; }
+    public class BufferService : IBufferService
+    {
+        private readonly Buffer _buffer;
+
+        public BufferService(Buffer buffer)
+        {
+            _buffer = buffer;
+        }
 
         /// <summary>
         /// Записать в буфер
@@ -18,12 +26,12 @@ namespace CircularBuffer.Core
         public void Write(Page page)
         {
             var next = LastWrited() + 1;
-            var index = next == Pages.Length ? 0 : next;
+            var index = next == _buffer.Pages.Length ? 0 : next;
 
-            if (Pages[index] != null && !Pages[index].IsReaded)
+            if (_buffer.Pages[index] != null && !_buffer.Pages[index].IsReaded)
                 throw new Exception("Ошибка добавления");
 
-            Pages[index] = page;
+            _buffer.Pages[index] = page;
         }
 
         /// <summary>
@@ -32,14 +40,14 @@ namespace CircularBuffer.Core
         public Page Read()
         {
             var next = LastReaded() + 1;
-            var index = next == Pages.Length ? 0 : next;
+            var index = next == _buffer.Pages.Length ? 0 : next;
 
-            if (Pages[index] == null)
+            if (_buffer.Pages[index] == null)
                 return null;
 
-            Pages[index].IsReaded = true;
+            _buffer.Pages[index].IsReaded = true;
 
-            return Pages[index];
+            return _buffer.Pages[index];
         }
 
         /// <summary>
@@ -50,12 +58,12 @@ namespace CircularBuffer.Core
         {
             var index = -1;
 
-            for (var i = 0; i < Pages.Length; i++)
+            for (var i = 0; i < _buffer.Pages.Length; i++)
             {
-                if (Pages[i] == null)
+                if (_buffer.Pages[i] == null)
                     continue;
 
-                if (Pages[i].IsWrited)
+                if (_buffer.Pages[i].IsWrited)
                     index = i;
             }
 
@@ -70,25 +78,16 @@ namespace CircularBuffer.Core
         {
             var index = -1;
 
-            for (var i = 0; i < Pages.Length; i++)
+            for (var i = 0; i < _buffer.Pages.Length; i++)
             {
-                if (Pages[i] == null)
+                if (_buffer.Pages[i] == null)
                     continue;
 
-                if (Pages[i].IsReaded)
+                if (_buffer.Pages[i].IsReaded)
                     index = i;
             }
 
             return index;
-        }
-
-        public void ToConsole()
-        {
-            for (var i = 0; i < Pages.Length; i++)
-            {
-                Console.Write($"{(Pages[i] != null ? Pages[i].Content : "''")} ");
-            }
-            Console.WriteLine();
         }
     }
 }

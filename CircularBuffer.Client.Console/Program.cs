@@ -1,6 +1,7 @@
 ﻿using System;
-using CircularBuffer.Core;
-using Buffer = CircularBuffer.Core.Buffer;
+using CircularBuffer.Core.Domain;
+using CircularBuffer.Core.Services;
+using Buffer = CircularBuffer.Core.Domain.Buffer;
 
 namespace CircularBuffer.Client.Console
 {
@@ -10,13 +11,15 @@ namespace CircularBuffer.Client.Console
         {
             var buffer = new Buffer(16);
 
+            var bufferService = new BufferService(buffer);
+
             buffer.ToConsole();
 
 
             try
             {
                 for (var i = 1; i <= 17; i++)
-                    buffer.Write(new Page { Content = i.ToString() });
+                    bufferService.Write(new Page { Content = i.ToString() });
             }
             catch (Exception ex)
             {
@@ -25,15 +28,15 @@ namespace CircularBuffer.Client.Console
 
             buffer.ToConsole();
 
-            var readedPage = buffer.Read();
+            var readedPage = bufferService.Read();
             System.Console.WriteLine(readedPage.Content);
             buffer.ToConsole();
 
-            readedPage = buffer.Read();
+            readedPage = bufferService.Read();
             System.Console.WriteLine(readedPage.Content);
             buffer.ToConsole();
 
-            buffer.Write(new Page { Content = "17" });
+            bufferService.Write(new Page { Content = "17" });
             buffer.ToConsole();
 
             System.Console.ReadLine();
