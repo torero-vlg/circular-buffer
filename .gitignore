@@ -1,0 +1,8 @@
+.vs/
+packages/
+*.user
+CircularBuffer.Client.Console/bin/
+CircularBuffer.Client.Console/obj/
+CircularBuffer.Core/bin/
+CircularBuffer.Core/obj/
+
