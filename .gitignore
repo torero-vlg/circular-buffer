@@ -5,4 +5,5 @@ CircularBuffer.Client.Console/bin/
 CircularBuffer.Client.Console/obj/
 CircularBuffer.Core/bin/
 CircularBuffer.Core/obj/
-
+CircularBuffer.Core.Tests/bin/
+CircularBuffer.Core.Tests/obj/

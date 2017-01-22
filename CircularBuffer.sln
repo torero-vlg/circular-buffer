@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CircularBuffer.Core", "Circ
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CircularBuffer.Client.Console", "CircularBuffer.Client.Console\CircularBuffer.Client.Console.csproj", "{49ECA2D1-1E8A-476C-9DE3-758B01D8321F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CircularBuffer.Core.Tests", "CircularBuffer.Core.Tests\CircularBuffer.Core.Tests.csproj", "{EDDADF96-FF07-43B7-9860-4AF2A1A14B6E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{49ECA2D1-1E8A-476C-9DE3-758B01D8321F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{49ECA2D1-1E8A-476C-9DE3-758B01D8321F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{49ECA2D1-1E8A-476C-9DE3-758B01D8321F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EDDADF96-FF07-43B7-9860-4AF2A1A14B6E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EDDADF96-FF07-43B7-9860-4AF2A1A14B6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EDDADF96-FF07-43B7-9860-4AF2A1A14B6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EDDADF96-FF07-43B7-9860-4AF2A1A14B6E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
