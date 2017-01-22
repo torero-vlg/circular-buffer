@@ -16,7 +16,7 @@ namespace CircularBuffer.Client.Console
             try
             {
                 for (var i = 1; i <= 17; i++)
-                    buffer.Push(new Page { Content = i.ToString() });
+                    buffer.Write(new Page { Content = i.ToString() });
             }
             catch (Exception ex)
             {
@@ -25,6 +25,16 @@ namespace CircularBuffer.Client.Console
 
             buffer.ToConsole();
 
+            var readedPage = buffer.Read();
+            System.Console.WriteLine(readedPage.Content);
+            buffer.ToConsole();
+
+            readedPage = buffer.Read();
+            System.Console.WriteLine(readedPage.Content);
+            buffer.ToConsole();
+
+            buffer.Write(new Page { Content = "17" });
+            buffer.ToConsole();
 
             System.Console.ReadLine();
         }
