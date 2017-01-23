@@ -1,7 +1,7 @@
-﻿using System;
-using CircularBuffer.Core.Domain;
-using CircularBuffer.Core.Services;
+﻿using CircularBuffer.Core.Services;
 using Buffer = CircularBuffer.Core.Domain.Buffer;
+using System.Threading;
+using CircularBuffer.Core.Domain;
 
 namespace CircularBuffer.Client.Console
 {
@@ -9,37 +9,25 @@ namespace CircularBuffer.Client.Console
     {
         static void Main(string[] args)
         {
-            var buffer = new Buffer(16);
-
+            var buffer = new Buffer(3);
             var bufferService = new BufferService(buffer);
 
-            buffer.ToConsole();
+            Thread oThread = new Thread(new ThreadStart(() => bufferService.Write(new Page { Content = "1" })));
 
 
-            try
-            {
-                for (var i = 1; i <= 17; i++)
-                    bufferService.Write(new Page { Content = i.ToString() });
-            }
-            catch (Exception ex)
-            {
-                System.Console.WriteLine(ex.Message);
-            }
+            oThread.Start();
+           
+            // Thread.Sleep(1);
 
             buffer.ToConsole();
-
-            var readedPage = bufferService.Read();
-            System.Console.WriteLine(readedPage.Content);
-            buffer.ToConsole();
-
-            readedPage = bufferService.Read();
-            System.Console.WriteLine(readedPage.Content);
-            buffer.ToConsole();
-
-            bufferService.Write(new Page { Content = "17" });
-            buffer.ToConsole();
-
+            
             System.Console.ReadLine();
+            oThread.Abort();
+
+            bufferService.Write(new Page { Content = "1" });
+            buffer.ToConsole();
+            System.Console.ReadLine();
+
         }
     }
 }
