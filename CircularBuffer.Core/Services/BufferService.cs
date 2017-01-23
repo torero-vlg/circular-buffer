@@ -29,6 +29,9 @@ namespace CircularBuffer.Core.Services
             var next = LastWrited() + 1;
             var index = next == _buffer.Pages.Length ? 0 : next;
 
+            //начиная с index ищем первый подходящий для записи
+            index = FirstReaded(index);
+
             if (_buffer.Pages[index] != null && !_buffer.Pages[index].IsReaded)
                 throw new BufferOverflowException();
 
@@ -86,6 +89,30 @@ namespace CircularBuffer.Core.Services
 
                 if (_buffer.Pages[i].IsReaded)
                     index = i;
+            }
+
+            return index;
+        }
+
+        /// <summary>
+        /// Индекс первой прочитанной страницы. Если нет, то startIndex
+        /// </summary>
+        /// <param name="startIndex">Начальный индекс для поиска</param>
+        /// <returns></returns>
+        private int FirstReaded(int startIndex)
+        {
+            var index = startIndex;
+
+            for (var i = 0; i < _buffer.Pages.Length; i++)
+            {
+                if (_buffer.Pages[i] == null)
+                    continue;
+
+                if (_buffer.Pages[i].IsReaded)
+                {
+                    index = i;
+                    break;
+                }
             }
 
             return index;
