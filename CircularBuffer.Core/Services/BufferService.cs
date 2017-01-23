@@ -7,8 +7,31 @@ namespace CircularBuffer.Core.Services
 {
     public interface IBufferService
     {
+        /// <summary>
+        /// Записать в буфер
+        /// </summary>
+        /// <param name="page"></param>
         void Write(Page page);
+
+        /// <summary>
+        /// Прочитать из буфера
+        /// </summary>
         Page Read();
+
+        /// <summary>
+        /// Запись набора страниц
+        /// </summary>
+        /// <param name="pages">Набор страниц</param>
+        /// <remarks>Запишется столько сколько можно, если останутся незаписанные, то BufferOverflowException</remarks>
+        void Write(Page[] pages);
+
+        /// <summary>
+        /// Чтение набора страниц
+        /// </summary>
+        /// <param name="count">Количество страниц, которые должны быть прочитаны</param>
+        /// <returns></returns>
+        /// <remarks>Если count превышает размер буфера, то вернётсявесь буфер начиная с первого непрочитанного</remarks>
+        Page[] Read(int count);
     }
 
     public class BufferService : IBufferService
@@ -52,6 +75,27 @@ namespace CircularBuffer.Core.Services
             _buffer.Pages[index].IsReaded = true;
 
             return _buffer.Pages[index];
+        }
+
+        /// <summary>
+        /// Запись набора страниц
+        /// </summary>
+        /// <param name="pages">Набор страниц</param>
+        /// <remarks>Запишется столько сколько можно, если останутся незаписанные, то BufferOverflowException</remarks>
+        public void Write(Page[] pages)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Чтение набора страниц
+        /// </summary>
+        /// <param name="count">Количество страниц, которые должны быть прочитаны</param>
+        /// <returns></returns>
+        /// <remarks>Если count превышает размер буфера, то вернётсявесь буфер начиная с первого непрочитанного</remarks>
+        public Page[] Read(int count)
+        {
+            throw new NotImplementedException();
         }
 
         /// <summary>
