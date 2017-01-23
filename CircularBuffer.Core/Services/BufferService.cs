@@ -2,6 +2,7 @@
 using CircularBuffer.Core.Domain;
 using Buffer = CircularBuffer.Core.Domain.Buffer;
 using CircularBuffer.Core.Exceptions;
+using System.Threading.Tasks;
 
 namespace CircularBuffer.Core.Services
 {
@@ -49,16 +50,22 @@ namespace CircularBuffer.Core.Services
         /// <param name="page"></param>
         public void Write(Page page)
         {
-            var next = LastWrited() + 1;
-            var index = next == _buffer.Pages.Length ? 0 : next;
+            Task taskA = Task.Run(() =>
+                {
+                    lock (_buffer)
+                    {
+                        var next = LastWrited() + 1;
+                        var index = next == _buffer.Pages.Length ? 0 : next;
 
-            //начиная с index ищем первый подходящий для записи
-            index = FirstReaded(index);
+                        //начиная с index ищем первый подходящий для записи
+                        index = FirstReaded(index);
 
-            if (_buffer.Pages[index] != null && !_buffer.Pages[index].IsReaded)
-                throw new BufferOverflowException();
+                        if (_buffer.Pages[index] != null && !_buffer.Pages[index].IsReaded)
+                            throw new BufferOverflowException();
 
-            _buffer.Pages[index] = page;
+                        _buffer.Pages[index] = page;
+                    }
+                });
         }
 
         /// <summary>
