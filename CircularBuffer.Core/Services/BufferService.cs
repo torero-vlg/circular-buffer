@@ -1,6 +1,7 @@
 ﻿using System;
 using CircularBuffer.Core.Domain;
 using Buffer = CircularBuffer.Core.Domain.Buffer;
+using CircularBuffer.Core.Exceptions;
 
 namespace CircularBuffer.Core.Services
 {
@@ -29,7 +30,7 @@ namespace CircularBuffer.Core.Services
             var index = next == _buffer.Pages.Length ? 0 : next;
 
             if (_buffer.Pages[index] != null && !_buffer.Pages[index].IsReaded)
-                throw new Exception("Ошибка добавления");
+                throw new BufferOverflowException();
 
             _buffer.Pages[index] = page;
         }
