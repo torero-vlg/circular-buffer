@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace CircularBuffer.Core.Services
 {
+    /// <summary>
+    /// Интерфейс работы с буфером
+    /// </summary>
     public interface IBufferService
     {
         /// <summary>

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace CircularBuffer.Core.Domain
+﻿namespace CircularBuffer.Core.Domain
 {
     /// <summary>
     /// TODO видимость этого класса из других сборок - ?

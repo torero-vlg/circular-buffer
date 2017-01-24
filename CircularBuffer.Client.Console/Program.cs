@@ -1,9 +1,6 @@
 ﻿using CircularBuffer.Core.Services;
 using Buffer = CircularBuffer.Core.Domain.Buffer;
-using System.Threading;
 using CircularBuffer.Core.Domain;
-using System.ComponentModel;
-using System.Threading.Tasks;
 
 namespace CircularBuffer.Client.Console
 {
