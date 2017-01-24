@@ -48,7 +48,7 @@ namespace CircularBuffer.Core.Tests
             Assert.IsNull(result);
         }
 
-        [Test(Description = "Перезапись прочитанного")]
+        [Test(Description = "Перезапись прочитанной страницы")]
         public void RewriteReadedPageTest()
         {
             _sut.Write(new Page { Content = "1" });
@@ -64,7 +64,7 @@ namespace CircularBuffer.Core.Tests
             Assert.AreEqual("3", _buffer.Pages[2].Content);
         }
 
-        [Test(Description = "Перезапись прочитанного")]
+        [Test(Description = "Перезапись всего прочитанного буфера")]
         public void MultipleRewriteReadedPageTest()
         {
             _sut.Write(new Page { Content = "1" });
