@@ -17,8 +17,6 @@ namespace AsteriskApiTest.JsonWorkerAssembly
 
         public WorkerResponse<T> Request<T>(RequestContext context)
         {
-            var response = new WorkerResponse<T>();
-
             var req = WebRequest.Create(_uriString);
             req.Method = "POST";
             req.ContentType = "application/json";
@@ -50,13 +48,13 @@ namespace AsteriskApiTest.JsonWorkerAssembly
                 Console.WriteLine(jsonString);
 
             }
-            Console.WriteLine("Hello World!");
+            //Console.WriteLine("Hello World!");
 
-            response = JsonConvert.DeserializeObject<WorkerResponse<T>>(jsonString);
+            var response = JsonConvert.DeserializeObject<WorkerResponse<T>>(jsonString);
 
             
 
-            Console.WriteLine("Press any key to continue . . . ");
+          //  Console.WriteLine("Press any key to continue . . . ");
 
             return response;
         }
