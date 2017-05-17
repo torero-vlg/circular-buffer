@@ -7,3 +7,6 @@ CircularBuffer.Core/bin/
 CircularBuffer.Core/obj/
 CircularBuffer.Core.Tests/bin/
 CircularBuffer.Core.Tests/obj/
+AsteriskApiTest/AsteriskApiTest/bin/
+AsteriskApiTest/AsteriskApiTest/obj/
+*.suo
