@@ -2,13 +2,18 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Linq;
-using System.Text;
 
 namespace AsteriskApiTest
 {
     public static class ListExtensions
     {
+        /// <summary>
+        /// Сделать из IList DataTable
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="data"></param>
+        /// <see cref="http://stackoverflow.com/questions/11981282/convert-json-to-datatable"/>
+        /// <returns></returns>
         public static DataTable ToDataTable<T>(this IList<T> data)
         {
             PropertyDescriptorCollection props = TypeDescriptor.GetProperties(typeof(T));
@@ -16,7 +21,7 @@ namespace AsteriskApiTest
             for (int i = 0; i < props.Count; i++)
             {
                 PropertyDescriptor prop = props[i];
-                table.Columns.Add(prop.Name, prop.PropertyType);
+                table.Columns.Add(prop.Name, Nullable.GetUnderlyingType(prop.PropertyType) ?? prop.PropertyType);
             }
             object[] values = new object[props.Count];
             foreach (T item in data)

@@ -20,8 +20,6 @@ namespace AsteriskApiTest
 
         public DataTable GetCallsForBillingReport(DateTime start, DateTime end)
         {
-            var dt = new DataTable();
-
             var jsonWorker = new JsonWorker(_uriString);
 
             var context = new RequestContext
@@ -33,7 +31,8 @@ namespace AsteriskApiTest
 
             var response = jsonWorker.Request<List<IncallsRing>>(context);
 
-            return dt;
+            //преобразовать response.Result в DataTable
+            return response.Result.ToDataTable();
         }
     }
 }
