@@ -34,6 +34,10 @@
     <Reference Include="Microsoft.CSharp">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.2\lib\net40\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -51,11 +55,16 @@
     <Compile Include="IListExtensions.cs" />
     <Compile Include="IRingsService.cs" />
     <Compile Include="JsonRingService.cs" />
+    <Compile Include="JsonWorkerAssembly\IncallsRing.cs" />
+    <Compile Include="JsonWorkerAssembly\JsonWorker.cs" />
+    <Compile Include="JsonWorkerAssembly\RequestContext.cs" />
+    <Compile Include="JsonWorkerAssembly\WorkerResponse.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

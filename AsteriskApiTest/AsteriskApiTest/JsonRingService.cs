@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
+using AsteriskApiTest.JsonWorkerAssembly;
 
 namespace AsteriskApiTest
 {
@@ -21,42 +22,16 @@ namespace AsteriskApiTest
         {
             var dt = new DataTable();
 
+            var jsonWorker = new JsonWorker(_uriString);
 
-            var req = WebRequest.Create(_uriString);
-            req.Method = "POST";
-            req.ContentType = "application/json";
-            var reqString = "{\"service\":\"storage\",\r\n\"method\":\"get\",\"object\":\"incallsring\"}";
-
-            var ms = new MemoryStream();
-
-            var writer = new StreamWriter(
-            ms);
-            writer.Write(reqString);
-            writer.Flush();
-
-            ms.Position = 0;
-
-            req.ContentLength = ms.Length;
-
-
-            ms.CopyTo(
-                req.GetRequestStream());
-
-            var respStream = req.GetResponse().GetResponseStream();
-
-            var jsonStr = "";
-            using (var reader = new StreamReader(respStream))
+            var context = new RequestContext
             {
-                jsonStr = reader.ReadToEnd();
-                Console.WriteLine(jsonStr);
+                Service = "storage",
+                Method = "get",
+                Object = "incallsring"
+            };
 
-               // List<User> UserList = JsonConvert.DeserializeObject<List<User>>(jsonString);
-            }
-            Console.WriteLine("Hello World!");
-
-            // TODO: Implement Functionality Here
-
-            Console.WriteLine("Press any key to continue . . . ");
+            var response = jsonWorker.Request<List<IncallsRing>>(context);
 
             return dt;
         }
