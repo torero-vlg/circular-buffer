@@ -22,9 +22,9 @@ namespace AsteriskApiTest
 
             var dataTable = service.GetCallsForBillingReport(DateTime.Today.AddMonths(-1), DateTime.Today);
 
-            logger.Info($"Rows count = {dataTable.Rows.Count}");
+            logger.Warn($"DataTable Rows count = {dataTable.Rows.Count}");
 
-            Console.ReadLine();
+            //Console.ReadLine();
         }
     }
 }
