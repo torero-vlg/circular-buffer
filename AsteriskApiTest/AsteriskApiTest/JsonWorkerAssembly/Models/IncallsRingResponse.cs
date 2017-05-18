@@ -1,9 +1,12 @@
 ﻿using System;
 using Newtonsoft.Json;
 
-namespace AsteriskApiTest.JsonWorkerAssembly
+namespace AsteriskApiTest.JsonWorkerAssembly.Models
 {
-    public class IncallsRing
+    /// <summary>
+    /// Объектное представление звонка
+    /// </summary>
+    public class IncallsRingResponse
     {
         [JsonProperty("timestamp")]
         public DateTime? Timestamp { get; set; }

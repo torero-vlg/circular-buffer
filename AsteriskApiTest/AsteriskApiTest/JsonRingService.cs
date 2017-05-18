@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Text;
 using AsteriskApiTest.JsonWorkerAssembly;
+using AsteriskApiTest.JsonWorkerAssembly.Filters;
+using AsteriskApiTest.JsonWorkerAssembly.Models;
 
 namespace AsteriskApiTest
 {
@@ -18,18 +16,22 @@ namespace AsteriskApiTest
             _uriString = uriString;
         }
 
+        /// <summary>
+        /// Данные для отчета по стоимости разговоров
+        /// </summary>
         public DataTable GetCallsForBillingReport(DateTime start, DateTime end)
         {
             var jsonWorker = new JsonWorker(_uriString);
 
-            var context = new RequestContext
+            var context = new RequestContext<CallsForBillingReportContext>
             {
                 Service = "storage",
                 Method = "get",
-                Object = "incallsring"
+                Object = "incallsring",
+                FilterContext = new CallsForBillingReportContext { TimeStampFrom = start, TimeStampTo = end, Limit = 10}
             };
 
-            var response = jsonWorker.Request<List<IncallsRing>>(context);
+            var response = jsonWorker.Request<List<IncallsRingResponse>, CallsForBillingReportContext>(context);
 
             //преобразовать response.Result в DataTable
             return response.Result.ToDataTable();

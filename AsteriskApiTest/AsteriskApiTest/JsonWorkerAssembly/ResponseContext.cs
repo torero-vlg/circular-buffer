@@ -1,9 +1,12 @@
-﻿using System.Dynamic;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace AsteriskApiTest.JsonWorkerAssembly
 {
-    public class WorkerResponse<T>
+    /// <summary>
+    /// Контекст ответа
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    public class ResponseContext<T>
     {
         [JsonProperty("object")]
         public string Object { get; set; }

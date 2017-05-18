@@ -2,33 +2,43 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
+using AsteriskApiTest.JsonWorkerAssembly.Filters;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using NLog;
 
 namespace AsteriskApiTest.JsonWorkerAssembly
 {
     public class JsonWorker
     {
         private readonly string _uriString;
+        private readonly Logger _logger = LogManager.GetCurrentClassLogger();
 
         public JsonWorker(string uriString)
         {
             _uriString = uriString;
         }
 
-        public WorkerResponse<T> Request<T>(RequestContext context)
+        public ResponseContext<TResult> Request<TResult, TFilter>(RequestContext<TFilter> context) where TFilter : BaseFilterContext
         {
             var req = WebRequest.Create(_uriString);
             req.Method = "POST";
             req.ContentType = "application/json";
 
+            var filter = JsonConvert.SerializeObject(context.FilterContext, Formatting.None, new IsoDateTimeConverter() { DateTimeFormat = "yyyy-MM-dd HH:mm:ss" });
 
-            var reqString = "{" + $"\"service\":\"{context.Service}\",\"method\":\"{context.Method}\",\"object\":\"{context.Object}\"" + "}";
+            var requestString = 
+                "{" + 
+                $"\"service\":\"{context.Service}\"," +
+                $"\"method\":\"{context.Method}\"," +
+                $"\"object\":\"{context.Object}\"," +
+                $"\"{context.Object}\":{filter}" + 
+                "}";
 
             var ms = new MemoryStream();
 
-            var writer = new StreamWriter(
-            ms);
-            writer.Write(reqString);
+            var writer = new StreamWriter(ms);
+            writer.Write(requestString);
             writer.Flush();
 
             ms.Position = 0;
@@ -36,25 +46,19 @@ namespace AsteriskApiTest.JsonWorkerAssembly
             req.ContentLength = ms.Length;
 
 
-            ms.CopyTo(
-                req.GetRequestStream());
+            ms.CopyTo(req.GetRequestStream());
 
             var respStream = req.GetResponse().GetResponseStream();
 
-            var jsonString = "";
+            string jsonString;
             using (var reader = new StreamReader(respStream))
             {
                 jsonString = reader.ReadToEnd();
-                Console.WriteLine(jsonString);
-
+                _logger.Trace(jsonString);
             }
-            //Console.WriteLine("Hello World!");
 
-            var response = JsonConvert.DeserializeObject<WorkerResponse<T>>(jsonString);
-
-            
-
-          //  Console.WriteLine("Press any key to continue . . . ");
+            var response = JsonConvert.DeserializeObject<ResponseContext<TResult>>(jsonString);
+            _logger.Debug(requestString);
 
             return response;
         }
