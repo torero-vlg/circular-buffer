@@ -68,18 +68,23 @@ namespace AsteriskApiTest.JsonWorkerAssembly
             catch (Exception ex)
             {
                 //десериализуем ошибочный ответ
-                var errorResponse = JsonConvert.DeserializeObject<ResponseContext<object>>(jsonString);
+                var errorResponse = JsonConvert.DeserializeObject<ErrorResponseContext>(jsonString);
 
-                //не найдено результатов
-                if (errorResponse.ResultCode == 404)
+                switch (errorResponse.ResultCode)
                 {
-                    response.Object = errorResponse.Object;
-                    response.Reason = errorResponse.Reason;
-                    response.Service = errorResponse.Service;
-                    response.Result = new TResult();
-                    response.Method = errorResponse.Method;
+                    //не найдено результатов
+                    case 404:
+                        {
+                            response.Object = errorResponse.Object;
+                            response.Reason = errorResponse.Reason;
+                            response.Service = errorResponse.Service;
+                            response.Result = new TResult();
+                            response.Method = errorResponse.Method;
+                            break;
+                        }
+                    default:
+                        throw new Exception($"{errorResponse.Error} {errorResponse.Description}");
                 }
-
             }
 
             return response;

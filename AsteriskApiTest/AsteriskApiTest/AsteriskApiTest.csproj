@@ -64,6 +64,7 @@
     <Compile Include="JsonWorkerAssembly\Models\IncallsRingResponse.cs" />
     <Compile Include="JsonWorkerAssembly\JsonWorker.cs" />
     <Compile Include="JsonWorkerAssembly\RequestContext.cs" />
+    <Compile Include="JsonWorkerAssembly\ErrorResponseContext.cs" />
     <Compile Include="JsonWorkerAssembly\ResponseContext.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
