@@ -11,6 +11,7 @@ namespace AsteriskApiTest.JsonWorkerAssembly.Filters
         /// Ограничение количества возвращаемых записей
         /// </summary>
         [JsonProperty("limit")]
-        public int Limit { get; set; }
+        //[JsonIgnore]
+        public int? Limit { get; set; }
     }
 }

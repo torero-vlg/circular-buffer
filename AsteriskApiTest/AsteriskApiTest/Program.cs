@@ -20,8 +20,8 @@ namespace AsteriskApiTest
 
             var service = new JsonRingService("http://192.168.30.212:8081/http");
 
-            var start = new DateTime(2017, 8, 1, 18, 0, 0);
-            var end = new DateTime(2016, 10, 20, 18, 0, 0);
+            var start = new DateTime(2016, 8, 1, 3, 0, 0);
+            var end = new DateTime(2016, 8, 2, 3, 0, 0);
 
             var dataTable = service.GetCallsForBillingReport(start, end);
 

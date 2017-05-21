@@ -23,10 +23,6 @@ namespace AsteriskApiTest.JsonWorkerAssembly
             where TFilter : BaseFilterContext
             where TResult : new()
         {
-            var req = WebRequest.Create(_uriString);
-            req.Method = "POST";
-            req.ContentType = "application/json";
-
             var filter = JsonConvert.SerializeObject(context.FilterContext, Formatting.None, new IsoDateTimeConverter() { DateTimeFormat = "yyyy-MM-dd HH:mm:ss" });
 
             var requestString = 
@@ -45,12 +41,22 @@ namespace AsteriskApiTest.JsonWorkerAssembly
 
             ms.Position = 0;
 
+            var req = WebRequest.Create(_uriString);
+            req.Method = "POST";
+            req.ContentType = "application/json";
             req.ContentLength = ms.Length;
-
 
             ms.CopyTo(req.GetRequestStream());
 
-            var respStream = req.GetResponse().GetResponseStream();
+            Stream respStream;
+            try
+            {
+                respStream = req.GetResponse().GetResponseStream();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Произошла ошибка при выполнении  запроса", ex);
+            }
 
             string jsonString;
             using (var reader = new StreamReader(respStream))
