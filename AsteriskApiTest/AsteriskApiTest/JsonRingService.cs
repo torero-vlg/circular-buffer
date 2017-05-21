@@ -21,7 +21,22 @@ namespace AsteriskApiTest
         /// </summary>
         public DataTable GetCompleteRings(DateTime start, DateTime end)
         {
-            throw new NotImplementedException();
+            var jsonWorker = new JsonWorker(_uriString);
+
+            var context = new RequestContext<CompleteRingContext>
+            {
+                Service = "storage",//TODO уточнить название сервиса
+                Method = "get",
+                Object = "incallsring",//TODO уточнить название
+                FilterContext = new CompleteRingContext { TimeStampFrom = start, TimeStampTo = end }
+            };
+
+            var response = jsonWorker.Request<List<IncallsRingResponse>, CompleteRingContext>(context);
+
+            //преобразовать response.Result в DataTable
+            var resultDataTable = response.Result.ToDataTable();
+
+            return MapRingStatus(resultDataTable);
         }
 
         /// <summary>
@@ -29,7 +44,22 @@ namespace AsteriskApiTest
         /// </summary>
         public DataTable GetCompleteRingsByKeyList(string keysList)
         {
-            throw new NotImplementedException();
+            var jsonWorker = new JsonWorker(_uriString);
+
+            var context = new RequestContext<CompleteRingContext>
+            {
+                Service = "storage",//TODO уточнить название сервиса
+                Method = "get",
+                Object = "incallsring",//TODO уточнить название
+                FilterContext = new CompleteRingContext { KeyList = keysList }
+            };
+
+            var response = jsonWorker.Request<List<IncallsRingResponse>, CompleteRingContext>(context);
+
+            //преобразовать response.Result в DataTable
+            var resultDataTable = response.Result.ToDataTable();
+
+            return MapRingStatus(resultDataTable);
         }
 
         /// <summary>
@@ -37,7 +67,22 @@ namespace AsteriskApiTest
         /// </summary>
         public DataTable GetCurrentRings()
         {
-            throw new NotImplementedException();
+            var jsonWorker = new JsonWorker(_uriString);
+
+            var context = new RequestContext<BaseFilterContext>
+            {
+                Service = "storage",//TODO уточнить название сервиса
+                Method = "get",
+                Object = "incallsring",//TODO уточнить название
+                FilterContext = new BaseFilterContext()
+            };
+
+            var response = jsonWorker.Request<List<IncallsRingResponse>, BaseFilterContext>(context);
+
+            //преобразовать response.Result в DataTable
+            var resultDataTable = response.Result.ToDataTable();
+
+            return MapRingDirection(resultDataTable);
         }
 
         /// <summary>
@@ -46,7 +91,22 @@ namespace AsteriskApiTest
         /// <param name="num_from">Номер</param>
         public DataTable GetCurrentRing(string num_to)
         {
-            throw new NotImplementedException();
+            var jsonWorker = new JsonWorker(_uriString);
+
+            var context = new RequestContext<CurrentRingContext>
+            {
+                Service = "storage",//TODO уточнить название сервиса
+                Method = "get",
+                Object = "incallsring",//TODO уточнить название
+                FilterContext = new CurrentRingContext { NumTo = num_to }
+            };
+
+            var response = jsonWorker.Request<List<IncallsRingResponse>, CurrentRingContext>(context);
+
+            //преобразовать response.Result в DataTable
+            var resultDataTable = response.Result.ToDataTable();
+
+            return MapRingDirection(resultDataTable);
         }
 
         /// <summary>
@@ -59,15 +119,15 @@ namespace AsteriskApiTest
         {
             var jsonWorker = new JsonWorker(_uriString);
 
-            var context = new RequestContext<CurrentRingIfMissedContext>
+            var context = new RequestContext<CurrentRingContext>
             {
                 Service = "storage",//TODO уточнить название сервиса
                 Method = "get",
                 Object = "incallsring",//TODO уточнить название
-                FilterContext = new CurrentRingIfMissedContext { NumTo = num_to }
+                FilterContext = new CurrentRingContext { NumTo = num_to }
             };
 
-            var response = jsonWorker.Request<List<IncallsRingResponse>, CurrentRingIfMissedContext>(context);
+            var response = jsonWorker.Request<List<IncallsRingResponse>, CurrentRingContext>(context);
 
             //преобразовать response.Result в DataTable
             var resultDataTable = response.Result.ToDataTable();
@@ -82,15 +142,15 @@ namespace AsteriskApiTest
         {
             var jsonWorker = new JsonWorker(_uriString);
 
-            var context = new RequestContext<CallsForBillingReportContext>
+            var context = new RequestContext<ActiveRingContext>
             {
                 Service = "storage",//TODO уточнить название сервиса
                 Method = "get",
                 Object = "incallsring",//TODO уточнить название
-                FilterContext = new CallsForBillingReportContext { TimeStampFrom = start, TimeStampTo = end, Limit = 1000 }//TODO должно будет работать без лимита
+                FilterContext = new ActiveRingContext { TimeStampFrom = start, TimeStampTo = end, Limit = 1000 }//TODO должно будет работать без лимита
             };
 
-            var response = jsonWorker.Request<List<IncallsRingResponse>, CallsForBillingReportContext>(context);
+            var response = jsonWorker.Request<List<IncallsRingResponse>, ActiveRingContext>(context);
 
             //преобразовать response.Result в DataTable
             return response.Result.ToDataTable();
@@ -98,22 +158,82 @@ namespace AsteriskApiTest
 
         public DataTable ReportByOperators(DateTime start, DateTime end)
         {
-            throw new NotImplementedException();
+            var jsonWorker = new JsonWorker(_uriString);
+
+            var context = new RequestContext<CompleteRingContext>
+            {
+                Service = "storage",//TODO уточнить название сервиса
+                Method = "get",
+                Object = "incallsring",//TODO уточнить название
+                FilterContext = new CompleteRingContext { TimeStampFrom = start, TimeStampTo = end }
+            };
+
+            var response = jsonWorker.Request<List<IncallsRingResponse>, CompleteRingContext>(context);
+
+            //преобразовать response.Result в DataTable
+            var resultDataTable = response.Result.ToDataTable();
+
+            return MapRingStatus(resultDataTable);
         }
 
         public DataTable GetActivitiPeers(DateTime start, DateTime end)
         {
-            throw new NotImplementedException();
+            var jsonWorker = new JsonWorker(_uriString);
+
+            var context = new RequestContext<CompleteRingContext>
+            {
+                Service = "storage",//TODO уточнить название сервиса
+                Method = "get",
+                Object = "incallsring",//TODO уточнить название
+                FilterContext = new CompleteRingContext { TimeStampFrom = start, TimeStampTo = end }
+            };
+
+            var response = jsonWorker.Request<List<IncallsRingResponse>, CompleteRingContext>(context);
+
+            //преобразовать response.Result в DataTable
+            var resultDataTable = response.Result.ToDataTable();
+
+            return MapRingStatus(resultDataTable);
         }
 
         public DataTable GetOperatorsNotTacker(DateTime start, DateTime end)
         {
-            throw new NotImplementedException();
+            var jsonWorker = new JsonWorker(_uriString);
+
+            var context = new RequestContext<CompleteRingContext>
+            {
+                Service = "storage",//TODO уточнить название сервиса
+                Method = "get",
+                Object = "incallsring",//TODO уточнить название
+                FilterContext = new CompleteRingContext { TimeStampFrom = start, TimeStampTo = end }
+            };
+
+            var response = jsonWorker.Request<List<IncallsRingResponse>, CompleteRingContext>(context);
+
+            //преобразовать response.Result в DataTable
+            var resultDataTable = response.Result.ToDataTable();
+
+            return MapRingStatus(resultDataTable);
         }
 
         public DataTable GetCallCenterAnaliticalIndexes(DateTime start, DateTime end)
         {
-            throw new NotImplementedException();
+            var jsonWorker = new JsonWorker(_uriString);
+
+            var context = new RequestContext<CompleteRingContext>
+            {
+                Service = "storage",//TODO уточнить название сервиса
+                Method = "get",
+                Object = "incallsring",//TODO уточнить название
+                FilterContext = new CompleteRingContext { TimeStampFrom = start, TimeStampTo = end }
+            };
+
+            var response = jsonWorker.Request<List<IncallsRingResponse>, CompleteRingContext>(context);
+
+            //преобразовать response.Result в DataTable
+            var resultDataTable = response.Result.ToDataTable();
+
+            return MapRingStatus(resultDataTable);
         }
 
         public void SetQueueTimeout(long seconds)

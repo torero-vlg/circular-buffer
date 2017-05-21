@@ -4,9 +4,9 @@ using Newtonsoft.Json;
 namespace AsteriskApiTest.JsonWorkerAssembly.Filters
 {
     /// <summary>
-    /// Фильтр конкретного запроса CallsForBillingReportContext
+    /// Фильтр для запроса активные звонки
     /// </summary>
-    public class CallsForBillingReportContext : BaseFilterContext
+    public class ActiveRingContext : BaseFilterContext
     {
         [JsonProperty("dateMin")]
         public DateTime TimeStampFrom { get; set; }

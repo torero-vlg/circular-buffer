@@ -60,7 +60,8 @@
     <Compile Include="IRingsService.cs" />
     <Compile Include="JsonRingService.cs" />
     <Compile Include="JsonWorkerAssembly\Filters\BaseFilterContext.cs" />
-    <Compile Include="JsonWorkerAssembly\Filters\CurrentRingIfMissedContext.cs" />
+    <Compile Include="JsonWorkerAssembly\Filters\CompleteRingsContext.cs" />
+    <Compile Include="JsonWorkerAssembly\Filters\CurrentRingContext.cs" />
     <Compile Include="JsonWorkerAssembly\Filters\CallsForBillingReportContext.cs" />
     <Compile Include="JsonWorkerAssembly\Models\IncallsRingResponse.cs" />
     <Compile Include="JsonWorkerAssembly\JsonWorker.cs" />

@@ -3,9 +3,9 @@
 namespace AsteriskApiTest.JsonWorkerAssembly.Filters
 {
     /// <summary>
-    /// Фильтр конкретного запроса CurrentRingIfMissedContext
+    /// Фильтр для запроса текущий звонок
     /// </summary>
-    public class CurrentRingIfMissedContext : BaseFilterContext
+    public class CurrentRingContext : BaseFilterContext
     {
         [JsonProperty("num_to")]
         public string NumTo { get; set; }
