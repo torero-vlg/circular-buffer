@@ -20,7 +20,7 @@ namespace AsteriskApiTest
 
             var service = new JsonRingService("http://192.168.30.212:8081/http");
 
-            var dataTable = service.GetCallsForBillingReport(DateTime.Today.AddMonths(-1), DateTime.Today);
+            var dataTable = service.GetCallsForBillingReport(new DateTime(2016, 8, 1, 18, 0, 0), new DateTime(2016, 10, 20, 18, 0, 0));
 
             logger.Warn($"DataTable Rows count = {dataTable.Rows.Count}");
 

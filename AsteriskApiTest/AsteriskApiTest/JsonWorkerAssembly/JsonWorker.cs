@@ -34,7 +34,7 @@ namespace AsteriskApiTest.JsonWorkerAssembly
                 $"\"object\":\"{context.Object}\"," +
                 $"\"{context.Object}\":{filter}" + 
                 "}";
-
+            _logger.Debug(requestString);
             var ms = new MemoryStream();
 
             var writer = new StreamWriter(ms);
@@ -58,7 +58,7 @@ namespace AsteriskApiTest.JsonWorkerAssembly
             }
 
             var response = JsonConvert.DeserializeObject<ResponseContext<TResult>>(jsonString);
-            _logger.Debug(requestString);
+
 
             return response;
         }

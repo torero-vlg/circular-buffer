@@ -28,7 +28,7 @@ namespace AsteriskApiTest
                 Service = "storage",
                 Method = "get",
                 Object = "incallsring",
-                FilterContext = new CallsForBillingReportContext { TimeStampFrom = start, TimeStampTo = end, Limit = 10}
+                FilterContext = new CallsForBillingReportContext { TimeStampFrom = start, TimeStampTo = end, Limit = 100}
             };
 
             var response = jsonWorker.Request<List<IncallsRingResponse>, CallsForBillingReportContext>(context);
