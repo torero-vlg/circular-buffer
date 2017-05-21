@@ -24,7 +24,7 @@ namespace AsteriskApiTest.JsonWorkerAssembly
         public string Method { get; set; }
 
 
-        //TODO проблема: имя этого атрибута динамическое, соответствует значению this.Object
+        //TODO проблема: имя этого атрибута динамическое (соответствует значению this.Object)
         [JsonProperty("incallsring")]
         public T Result { get; set; }
     }

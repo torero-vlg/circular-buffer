@@ -10,3 +10,4 @@ CircularBuffer.Core.Tests/obj/
 AsteriskApiTest/AsteriskApiTest/bin/
 AsteriskApiTest/AsteriskApiTest/obj/
 *.suo
+*.7z
