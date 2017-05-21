@@ -18,7 +18,10 @@ namespace AsteriskApiTest.JsonWorkerAssembly
         public string Service { get; set; }
 
         [JsonProperty("result")]
-        public string ResultCode { get; set; }
+        public int ResultCode { get; set; }
+
+        [JsonProperty("method")]
+        public string Method { get; set; }
 
 
         //TODO проблема: имя этого атрибута динамическое, соответствует значению this.Object

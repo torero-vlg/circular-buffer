@@ -19,7 +19,9 @@ namespace AsteriskApiTest.JsonWorkerAssembly
             _uriString = uriString;
         }
 
-        public ResponseContext<TResult> Request<TResult, TFilter>(RequestContext<TFilter> context) where TFilter : BaseFilterContext
+        public ResponseContext<TResult> Request<TResult, TFilter>(RequestContext<TFilter> context) 
+            where TFilter : BaseFilterContext
+            where TResult : new()
         {
             var req = WebRequest.Create(_uriString);
             req.Method = "POST";
@@ -57,8 +59,28 @@ namespace AsteriskApiTest.JsonWorkerAssembly
                 _logger.Trace(jsonString);
             }
 
-            var response = JsonConvert.DeserializeObject<ResponseContext<TResult>>(jsonString);
+            var response = new ResponseContext<TResult>();
 
+            try
+            {
+                response = JsonConvert.DeserializeObject<ResponseContext<TResult>>(jsonString);
+            }
+            catch (Exception ex)
+            {
+                //десериализуем ошибочный ответ
+                var errorResponse = JsonConvert.DeserializeObject<ResponseContext<object>>(jsonString);
+
+                //не найдено результатов
+                if (errorResponse.ResultCode == 404)
+                {
+                    response.Object = errorResponse.Object;
+                    response.Reason = errorResponse.Reason;
+                    response.Service = errorResponse.Service;
+                    response.Result = new TResult();
+                    response.Method = errorResponse.Method;
+                }
+
+            }
 
             return response;
         }
