@@ -27,10 +27,10 @@ namespace AsteriskApiTest.JsonWorkerAssembly
 
             var requestString = 
                 "{" + 
-                $"\"service\":\"{context.Service}\"," +
-                $"\"method\":\"{context.Method}\"," +
-                $"\"object\":\"{context.Object}\"," +
-                $"\"{context.Object}\":{filter}" + 
+                string.Format("\"service\":\"{0}\",", context.Service) +
+                string.Format("\"method\":\"{context.Method}\",", context.Service) +
+                string.Format("\"object\":\"{context.Object}\",", context.Service) +
+                string.Format("\"{context.Object}\":{filter}", context.Service) + 
                 "}";
             _logger.Debug(requestString);
             var ms = new MemoryStream();
@@ -89,7 +89,7 @@ namespace AsteriskApiTest.JsonWorkerAssembly
                             break;
                         }
                     default:
-                        throw new Exception($"{errorResponse.Error} {errorResponse.Description}");
+                        throw new Exception(string.Format("{0} {1}", errorResponse.Error, errorResponse.Description));
                 }
             }
 

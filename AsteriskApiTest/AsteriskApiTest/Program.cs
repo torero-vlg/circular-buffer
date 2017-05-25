@@ -26,7 +26,7 @@ namespace AsteriskApiTest
             var dataTable = service.GetCallsForBillingReport(start, end);
             //var dataTable = service.GetCurrentRings();
 
-            logger.Warn($"DataTable Rows count = {dataTable.Rows.Count}");
+            logger.Warn(string.Format("DataTable Rows count = {0}", dataTable.Rows.Count));
 
             //Console.ReadLine();
         }
