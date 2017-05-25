@@ -56,7 +56,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IListExtensions.cs" />
+    <Compile Include="ListExtensions.cs" />
     <Compile Include="IRingsService.cs" />
     <Compile Include="JsonRingService.cs" />
     <Compile Include="JsonWorkerAssembly\Filters\BaseFilterContext.cs" />

@@ -12,6 +12,6 @@ namespace AsteriskApiTest.JsonWorkerAssembly.Filters
         /// </summary>
         [JsonProperty("limit")]
         //[JsonIgnore]
-        public int? Limit { get; set; }
+        public int Limit { get; set; }
     }
 }

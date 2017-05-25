@@ -23,7 +23,8 @@ namespace AsteriskApiTest
             var start = new DateTime(2016, 8, 1, 3, 0, 0);
             var end = new DateTime(2016, 8, 2, 3, 0, 0);
 
-            var dataTable = service.GetCallsForBillingReport(start, end);
+            //var dataTable = service.GetCallsForBillingReport(start, end);
+            var dataTable = service.GetCompleteRings(start, end);
             //var dataTable = service.GetCurrentRings();
 
             logger.Warn(string.Format("DataTable Rows count = {0}", dataTable.Rows.Count));

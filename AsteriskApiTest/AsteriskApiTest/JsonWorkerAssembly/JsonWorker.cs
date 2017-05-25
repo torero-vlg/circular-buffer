@@ -25,12 +25,12 @@ namespace AsteriskApiTest.JsonWorkerAssembly
         {
             var filter = JsonConvert.SerializeObject(context.FilterContext, Formatting.None, new IsoDateTimeConverter() { DateTimeFormat = "yyyy-MM-dd HH:mm:ss" });
 
-            var requestString = 
-                "{" + 
+            var requestString =
+                "{" +
                 string.Format("\"service\":\"{0}\",", context.Service) +
-                string.Format("\"method\":\"{context.Method}\",", context.Service) +
-                string.Format("\"object\":\"{context.Object}\",", context.Service) +
-                string.Format("\"{context.Object}\":{filter}", context.Service) + 
+                string.Format("\"method\":\"{0}\",", context.Service) +
+                string.Format("\"object\":\"{0}\",", context.Service) +
+                string.Format("\"{0}\":{1}", context.Service, filter) +
                 "}";
             _logger.Debug(requestString);
             var ms = new MemoryStream();
@@ -70,6 +70,9 @@ namespace AsteriskApiTest.JsonWorkerAssembly
             try
             {
                 response = JsonConvert.DeserializeObject<ResponseContext<TResult>>(jsonString);
+
+                if (response.Result == null)
+                    response.Result = new TResult();
             }
             catch (Exception ex)
             {
